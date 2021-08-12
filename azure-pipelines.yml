@@ -1,0 +1,30 @@
+trigger:
+- '*'
+
+stages:
+- stage: Build
+  variables:
+    dotnetSdkVersion: 3.1.300
+    BuildConfiguration: release
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UseDotNet@2
+      displayName: Use .NET SDK $(dotnetSdkVersion)
+      inputs:
+        version: $(dotnetSdkVersion)
+- stage: Deploy
+  displayName: Deploy
+  jobs:
+  - deployment: deploy
+    displayName: Deploy job
+    environment: 'dev'
+    pool:
+      vmImage: 'ubuntu-latest'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo 'Deploy Dev'
