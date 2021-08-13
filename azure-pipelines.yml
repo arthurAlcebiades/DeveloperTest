@@ -17,7 +17,7 @@ steps:
   displayName: Run npm install
   inputs:
     verbose: false
-- script: C:/az-proj/node-sass $(wwwrootDir) --output $(wwwrootDir)
+- script: wwwroot $(wwwrootDir) --output $(wwwrootDir)
   displayName: Compile Sass assets
 - task: gulp@1
   displayName: Run gulp tasks
